@@ -7,12 +7,20 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /usr/src/app
 COPY package.json .
 COPY yarn.lock .
 RUN yarn install
 COPY . .
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser node_modules \
+    && chown -R pptruser:pptruser package.json \
+    && chown -R pptruser:pptruser yarn.lock \
+    && chown -R pptruser:pptruser *
+USER pptruser
+
 EXPOSE 3000
 CMD [ "node", "index.js" ]
 #docker build . -t rajaomariajaona/convert-svg-to-png

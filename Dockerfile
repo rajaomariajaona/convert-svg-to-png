@@ -7,6 +7,8 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
+ENV PUPPETEER_EXECUTABLE_PATH google-chrome-stable
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 WORKDIR /usr/src/app
 COPY package.json .
 COPY yarn.lock .
@@ -23,5 +25,7 @@ USER pptruser
 
 EXPOSE 3000
 CMD [ "node", "index.js" ]
+#git clone https://github.com/rajaomariajaona/convert-svg-to-png.git
+#cd convert-svg-to-png
 #docker build . -t rajaomariajaona/convert-svg-to-png
-#docker run -p 8008:3000 --name test rajaomariajaona/convert-svg-to-png
+#docker run -p 4321:3000 --name test rajaomariajaona/convert-svg-to-png

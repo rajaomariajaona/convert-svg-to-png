@@ -8,7 +8,10 @@ app.use(express.text())
 
 app.post('/save-png', async(req, res) => {
   console.log(req.body);
-  const png = await convert(req.body);
+  const png = await convert(req.body,{
+    puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }});
 
   res.set('Content-Type', 'image/png');
   res.send(png);

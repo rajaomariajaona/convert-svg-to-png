@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
       --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
-ENV PUPPETEER_EXECUTABLE_PATH chrome-launcher.sh
+ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/google-chrome
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 WORKDIR /usr/src/app
 COPY package.json .
@@ -20,9 +20,7 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && chown -R pptruser:pptruser node_modules \
     && chown -R pptruser:pptruser package.json \
     && chown -R pptruser:pptruser yarn.lock \
-    && chown -R pptruser:pptruser * \
-    && chown pptruser:pptruser chrome-launcher.sh \
-    && chmod +x chrome-launcher.sh
+    && chown -R pptruser:pptruser *
 USER pptruser
 
 EXPOSE 3000

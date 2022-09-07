@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   rm -rf /var/lib/apt/lists/*
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install --production=true
+RUN yarn install
 COPY . .
 EXPOSE 3000
 CMD [ "node", "index.js" ]
+#docker build . -t rajaomariajaona/convert-svg-to-png
+#docker run -p 8008:3000 --name test rajaomariajaona/convert-svg-to-png

@@ -21,7 +21,7 @@ RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && chown -R pptruser:pptruser package.json \
     && chown -R pptruser:pptruser yarn.lock \
     && chown -R pptruser:pptruser * \
-    && chown pptruser:pptruser chrome-launcher. \
+    && chown pptruser:pptruser chrome-launcher.sh \
     && chmod +x chrome-launcher.sh
 USER pptruser
 
